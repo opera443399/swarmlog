@@ -19,11 +19,10 @@ docker-container ==> log-pilot ==> graylog
                                    \_ mongodb
 ```
 
-##### elasticsearch+graylog
+##### 初始化graylog+elasticsearch+mongodb
 注意 graylog 在容器中运行时，可以注入环境变量，变量名称的小技巧是：
 参考 `graylog配置文件` 中定义的变量，变成大写字符，加上前缀： `GRAYLOG_`
 
-初始化：
 ```bash
 # sh es.sh
 # sh mongodb.sh
