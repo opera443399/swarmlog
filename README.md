@@ -1,5 +1,5 @@
 # 容器日志收集方案探索之log-pilot
-2018/7/27
+2018/7/31
 
 > log-pilot: 阿里云开源的日志采集器
 
@@ -63,6 +63,18 @@ docker run -d --rm -it \
 ##### 收集容器日志的方式3：在 docker swarm service 模式下指定 `--container-label-add`
 ```bash
 docker service update --with-registry-auth --container-label-add "aliyun.logs.t003=stdout" t003
+
+# 批量给一组 service 增加 --container-label 来激活 log-pilot
+for h in $(docker service ls |grep 'dev-' |awk '{print $2}'); do
+  echo "[+] 更新 $h 的标签"
+  docker service update --with-registry-auth --container-label-add "aliyun.logs.test=stdout" $h
+done
+
+# 批量查看一组 service 的 Labels
+for h in $(docker service ls |grep 'dev-' |awk '{print $2}'); do
+  echo "[+] 查看 $h 的标签"
+  docker service inspect -f "{{.Spec.TaskTemplate.ContainerSpec.Labels}}" $h
+done
 
 ```
 
