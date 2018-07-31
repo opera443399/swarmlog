@@ -70,6 +70,6 @@ docker service update --with-registry-auth --container-label-add "aliyun.logs.t0
 
 ##### ZYXW、参考
 1. [Docker 日志收集新方案：log-pilot](https://help.aliyun.com/document_detail/50441.html)
-2. [log-pilot](https://github.com/AliyunContainerService/log-pilot)
+2. [log-pilot](https://github.com/AliyunContainerService/log-pilot/releases)
 3. [graylog-image](https://hub.docker.com/r/graylog/graylog/)
 3. [graylog配置文件](https://github.com/Graylog2/graylog-docker/blob/2.4/config/graylog.conf)

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# 2018/7/25
+# 2018/7/31
 
 test $(docker ps -a -f name=log-pilot -q |wc -l) -eq 0 || \
 docker rm -f $(docker ps -a -f name=log-pilot -q)
@@ -16,4 +16,6 @@ docker run -d --rm -it \
     -e FLUENTD_OUTPUT="graylog" \
     -e GRAYLOG_HOST="10.50.200.101" \
     -e GRAYLOG_PORT="12201" \
-    registry.cn-hangzhou.aliyuncs.com/acs-sample/log-pilot:latest
+    registry.cn-hangzhou.aliyuncs.com/acs-sample/log-pilot:0.9.5-fluentd
+
+docker ps -a -f name=log-pilot
