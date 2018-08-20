@@ -2,10 +2,21 @@
 #
 # 2018/7/25
 
-sysctl -w vm.max_map_count=262144
+if [ $(docker ps -a -f "name=logs-elasticsearch" -f "status=running" -q |wc -l) -eq 1 ]; then
+  echo '[I] status=running'
+  docker ps -a -f "name=logs-elasticsearch"
+  exit 0
+elif [ $(docker ps -a -f "name=logs-elasticsearch" -f "status=exited" -q |wc -l) -eq 1 ]; then
+  echo '[I] status=exited'
+  docker start logs-elasticsearch
+  echo '[I] restarted'
+  docker ps -a -f "name=logs-elasticsearch"
+  exit 0
+fi
 
-test $(docker ps -a -f name=logs-elasticsearch -q |wc -l) -eq 0 || \
-docker rm -f $(docker ps -a -f name=logs-elasticsearch -q)
+#docker rm -f $(docker ps -a -f "name=logs-elasticsearch" -q)
+
+sysctl -w vm.max_map_count=262144
 
 # ports: 9200[elasticsearch]
 docker run -d -p "9200:9200" \

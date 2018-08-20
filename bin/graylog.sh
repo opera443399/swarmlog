@@ -7,8 +7,19 @@
 # GRAYLOG_ROOT_PASSWORD_SHA2: `$ echo -n admin | sha256sum`
 
 
-test $(docker ps -a -f name=logs-graylog -q |wc -l) -eq 0 || \
-docker rm -f $(docker ps -a -f name=logs-graylog -q)
+if [ $(docker ps -a -f "name=logs-graylog" -f "status=running" -q |wc -l) -eq 1 ]; then
+  echo '[I] status=running'
+  docker ps -a -f "name=logs-graylog"
+  exit 0
+elif [ $(docker ps -a -f "name=logs-graylog" -f "status=exited" -q |wc -l) -eq 1 ]; then
+  echo '[I] status=exited'
+  docker start logs-graylog
+  echo '[I] restarted'
+  docker ps -a -f "name=logs-graylog"
+  exit 0
+fi
+
+#docker rm -f $(docker ps -a -f name=logs-graylog -q)
 
 docker run -d -p "9000:9000" -p "514:514" -p "514:514/udp" -p "12201:12201" -p "12201:12201/udp" \
     --name logs-graylog \
