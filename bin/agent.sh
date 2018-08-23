@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# 2018/8/20
+# 2018/8/23
 
-test $(docker ps -a -f name=log-pilot -q |wc -l) -eq 0 || \
-docker rm -f $(docker ps -a -f name=log-pilot -q)
+test $(docker ps -a -f name=logs-agent -q |wc -l) -eq 0 || \
+docker rm -f logs-agent
 
 docker run -d --rm -it \
-    --name log-pilot \
+    --name logs-agent \
     -v /etc/localtime:/etc/localtime \
     -v /etc/timezone:/etc/timezone \
     -v /var/run/docker.sock:/var/run/docker.sock \
@@ -18,4 +18,4 @@ docker run -d --rm -it \
     -e GRAYLOG_PORT="12201" \
     registry.cn-hangzhou.aliyuncs.com/acs-sample/log-pilot:0.9.5-fluentd
 
-docker logs --tail 100 --since 5m -f log-pilot
+docker logs --tail 100 --since 5m -f logs-agent

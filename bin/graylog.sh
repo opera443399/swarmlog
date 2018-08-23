@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# 2018/7/25
+# 2018/8/23
 
 # ports: 514[Syslog], 12201[GELF], 9000[Graylog web]
 # GRAYLOG_PASSWORD_SECRET: `chars > 16`
@@ -11,6 +11,10 @@ if [ $(docker ps -a -f "name=logs-graylog" -f "status=running" -q |wc -l) -eq 1 
   echo '[I] status=running'
   docker ps -a -f "name=logs-graylog"
   exit 0
+elif [ $(docker ps -a -f "name=logs-graylog" -f "status=created" -q |wc -l) -eq 1 ]; then
+  echo '[I] status=created'
+  docker rm -f logs-graylog
+  echo '[I] removed'
 elif [ $(docker ps -a -f "name=logs-graylog" -f "status=exited" -q |wc -l) -eq 1 ]; then
   echo '[I] status=exited'
   docker start logs-graylog
@@ -18,8 +22,6 @@ elif [ $(docker ps -a -f "name=logs-graylog" -f "status=exited" -q |wc -l) -eq 1
   docker ps -a -f "name=logs-graylog"
   exit 0
 fi
-
-#docker rm -f $(docker ps -a -f name=logs-graylog -q)
 
 docker run -d -p "9000:9000" -p "514:514" -p "514:514/udp" -p "12201:12201" -p "12201:12201/udp" \
     --name logs-graylog \
