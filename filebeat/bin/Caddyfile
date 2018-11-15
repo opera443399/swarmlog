@@ -1,0 +1,19 @@
+:5601 {
+    basicauth / {$ADMIN_USER} {$ADMIN_PASSWORD}
+    proxy / logs-kibana:5601 {
+            transparent
+        }
+
+    errors stderr
+    tls off
+}
+
+:9200 {
+    basicauth / {$ADMIN_USER} {$ADMIN_PASSWORD}
+    proxy / logs-es1:9200 {
+            transparent
+        }
+
+    errors stderr
+    tls off
+}
