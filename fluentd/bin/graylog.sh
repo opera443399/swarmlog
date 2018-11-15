@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# 2018/8/23
+# 2018/11/15
 
 # ports: 514[Syslog], 12201[GELF], 9000[Graylog web]
 # GRAYLOG_PASSWORD_SECRET: `chars > 16`
@@ -26,7 +26,6 @@ fi
 docker run -d -p "9000:9000" -p "514:514" -p "514:514/udp" -p "12201:12201" -p "12201:12201/udp" \
     --name logs-graylog \
     -v /etc/localtime:/etc/localtime \
-    -v /etc/timezone:/etc/timezone \
     -v /data/server/swarmlog/graylog:/usr/share/graylog/data/journal \
     -e "GRAYLOG_PASSWORD_SECRET=your-password-secret-here" \
     -e "GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918" \

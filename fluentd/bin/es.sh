@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# 2018/8/23
+# 2018/11/15
 
 if [ $(docker ps -a -f "name=logs-elasticsearch" -f "status=running" -q |wc -l) -eq 1 ]; then
   echo '[I] status=running'
@@ -25,7 +25,6 @@ docker run -d -p "9200:9200" \
     --ulimit memlock=-1:-1 \
     --name logs-elasticsearch \
     -v /etc/localtime:/etc/localtime \
-    -v /etc/timezone:/etc/timezone \
     -v /data/server/swarmlog/es:/usr/share/elasticsearch/data \
     -e "cluster.name=docker-logs-cluster" \
     -e "bootstrap.memory_lock=true" \

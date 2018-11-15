@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# 2018/8/23
+# 2018/11/15
 
 if [ $(docker ps -a -f "name=logs-mongodb" -f "status=running" -q |wc -l) -eq 1 ]; then
   echo '[I] status=running'
@@ -22,6 +22,5 @@ fi
 docker run -d -p "27017:27017" \
     --name logs-mongodb \
     -v /etc/localtime:/etc/localtime \
-    -v /etc/timezone:/etc/timezone \
     -v /data/server/swarmlog/mongodb:/data/db \
     mongo:3
