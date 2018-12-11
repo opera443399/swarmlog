@@ -35,7 +35,7 @@ docker run -d \
   -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
   -e "xpack.security.enabled=false" \
   --ulimit memlock=-1:-1 \
-  docker.elastic.co/elasticsearch/elasticsearch:6.5.0
+  opera443399/elasticsearch:6.5.0
 
 sleep 1s
 docker logs --tail 100 --since 5m -f logs-es1

@@ -16,7 +16,7 @@ docker run -d \
   -e "ELASTICSEARCH_URL=${ELASTICSEARCH_URL}" \
   -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
   -e "xpack.security.enabled=false" \
-  docker.elastic.co/kibana/kibana:6.5.0
+  opera443399/kibana:6.5.0
 
 sleep 1s
 docker logs --tail 100 --since 5m -f logs-kibana
