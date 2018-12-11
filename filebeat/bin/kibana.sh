@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# 2018/11/15
+# 2018/12/11
 
 test $(docker ps -a -f name=logs-kibana -q |wc -l) -eq 0 || \
 docker rm -f logs-kibana
@@ -18,4 +18,5 @@ docker run -d \
   -e "xpack.security.enabled=false" \
   docker.elastic.co/kibana/kibana:6.5.0
 
+sleep 1s
 docker logs --tail 100 --since 5m -f logs-kibana
