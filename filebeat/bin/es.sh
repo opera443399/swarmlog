@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# 2018/11/15
+# 2018/12/11
 
 if [ $(docker ps -a -f "name=logs-es1" -f "status=running" -q |wc -l) -eq 1 ]; then
   echo '[I] status=running'
@@ -21,14 +21,15 @@ fi
 sysctl -w vm.max_map_count=262144
 
 docker network inspect logs-net >/dev/null || docker network create --driver overlay --attachable logs-net
-docker volume create esdata1
+mkdir -p /data/es1
+chown -R 1000:1000 /data/es1
 
 # es port: 9200
 docker run -d \
   --name logs-es1 \
   --network logs-net \
   -v /etc/localtime:/etc/localtime \
-  -v esdata1:/usr/share/elasticsearch/data \
+  -v /data/es1:/usr/share/elasticsearch/data \
   -e "cluster.name=docker-logs-cluster" \
   -e "bootstrap.memory_lock=true" \
   -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
@@ -36,4 +37,5 @@ docker run -d \
   --ulimit memlock=-1:-1 \
   docker.elastic.co/elasticsearch/elasticsearch:6.5.0
 
+sleep 1s
 docker logs --tail 100 --since 5m -f logs-es1
