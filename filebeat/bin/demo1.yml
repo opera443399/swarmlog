@@ -26,8 +26,8 @@ services:
     environment:
       - APP_ENV=qa
     labels:
-      - aliyun.logs.demo1-stdout=stdout
-      - aliyun.logs.demo1-file=/var/log/app/*.log
+      - aliyun.logs.svc1-stdout=stdout
+      - aliyun.logs.svc1-file=/var/log/app/svc1.log
     deploy:
       replicas: 1
       restart_policy:
