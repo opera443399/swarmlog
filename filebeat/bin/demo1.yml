@@ -15,19 +15,19 @@ volumes:
 
 services:
 ##
-  demo1:
-    image: demo1
+  svc1:
+    image: svc1
     ports:
       - "80:80"
     networks:
       - net
     volumes:
-      - logs:/var/log/demo1
+      - logs:/var/log/app
     environment:
       - APP_ENV=qa
     labels:
       - aliyun.logs.demo1-stdout=stdout
-      - aliyun.logs.demo1-file=/var/log/demo1/*.log
+      - aliyun.logs.demo1-file=/var/log/app/*.log
     deploy:
       replicas: 1
       restart_policy:
