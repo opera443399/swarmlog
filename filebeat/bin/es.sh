@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# 2018/12/11
+# 2018/12/19
 
 if [ $(docker ps -a -f "name=logs-es1" -f "status=running" -q |wc -l) -eq 1 ]; then
   echo '[I] status=running'
@@ -20,7 +20,6 @@ fi
 
 sysctl -w vm.max_map_count=262144
 
-docker network inspect logs-net >/dev/null || docker network create --driver overlay --attachable logs-net
 mkdir -p /data/es1
 chown -R 1000:1000 /data/es1
 
