@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# 2018/12/19
+# 2018/12/22
 
 if [ $(docker ps -a -f "name=logs-es1" -f "status=running" -q |wc -l) -eq 1 ]; then
   echo '[I] status=running'
@@ -29,6 +29,8 @@ docker run -d \
   --network logs-net \
   -v /etc/localtime:/etc/localtime \
   -v /data/es1:/usr/share/elasticsearch/data \
+  --cpus "2.0" \
+  --memory "2048m" \
   -e "cluster.name=docker-logs-cluster" \
   -e "bootstrap.memory_lock=true" \
   -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
