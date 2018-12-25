@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# 0 3 * * * sh -xe /usr/local/bin/es-cleanup.sh >/dev/null 2>&1 &
+# 0 3 * * * sh /usr/local/bin/es-cleanup.sh >/dev/null 2>&1 &
 
 dest_dt=$(date -d "2 days ago" +"%Y.%m.%d")
 indices="
