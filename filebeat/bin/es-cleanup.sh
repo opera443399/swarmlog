@@ -9,13 +9,13 @@ appName-*-${dest_dt}
 "
 
 echo -e '\n------[BEFORE] es cleanup------'
-docker exec -it logs-es1 curl 'localhost:9200/_cat/indices?v&s=index:desc'
+docker exec logs-es1 curl -s 'localhost:9200/_cat/indices?v&s=index:desc'
 
 echo -e '\n------[DO] es cleanup------'
 for i in ${indices}; do
   echo -e "\n[DELETE] $i"
-  docker exec -it logs-es1 curl -X DELETE "localhost:9200/$i"
+  docker exec logs-es1 curl -s -X DELETE "localhost:9200/$i"
 done
 
 echo -e '\n\n------[AFTER] es cleanup------'
-docker exec -it logs-es1 curl 'localhost:9200/_cat/indices?v&s=index:desc'
+docker exec logs-es1 curl -s 'localhost:9200/_cat/indices?v&s=index:desc'
