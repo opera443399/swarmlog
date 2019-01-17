@@ -1,5 +1,6 @@
 # log-pilot-filebeat 使用介绍
-2018/12/17
+
+2019/1/17
 
 下面以 filebeat 为例，描述部署一个简易的日志服务的基本步骤。
 ```
@@ -8,22 +9,26 @@ docker-container ==> log-pilot(filebeat) ==> elasticsearch
 
 ```
 
-##### 初始化 elasticsearch + kibana
-```bash
-# sh es.sh
-# sh kibana.sh
-# sh caddy.sh
+##### 初始化
 
-```
+elasticsearch: 请参考附带的部署文档
+移除了在容器中运行es的方法，因为经过一段时间的验证，在数据量增加时，并不稳定，需要更多时间精力调优，因此目前决定提供更稳定的方案。
+
+##### 初始化 kibana
+
+```kibana.sh```
+
+##### 初始化 caddy
+
+```caddy.sh```
 
 ##### 日志 agent 在每个 docker node 上运行
-```bash
-# sh agent.sh
 
-```
+```agent.sh```
 
 
 ##### 运行示例 demo1
+
 ```bash
 # docker stack deploy --with-registry-auth -c demo1.yml demo1
 
@@ -31,6 +36,7 @@ docker-container ==> log-pilot(filebeat) ==> elasticsearch
 
 
 ##### 自动生成的 filebeat 配置结构如下
+
 ```bash
 /etc/filebeat # ls
 fields.yml     kibana         modules.d

@@ -1,6 +1,6 @@
 :5601 {
     basicauth / {$ADMIN_USER} {$ADMIN_PASSWORD}
-    proxy / logs-kibana:5601 {
+    proxy / 127.0.0.1:5001 {
             transparent
         }
 
@@ -10,7 +10,7 @@
 
 :9200 {
     basicauth / {$ADMIN_USER} {$ADMIN_PASSWORD}
-    proxy / logs-es1:9200 {
+    proxy / 10.200.3.101:5002 {
             transparent
         }
 
